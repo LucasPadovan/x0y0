@@ -6,3 +6,5 @@
 /log/
 /public/assets/
 /tmp/
+/.idea
+/lib/adapters/

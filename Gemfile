@@ -15,6 +15,7 @@ gem 'magick_columns'
 gem 'validates_timeliness'
 gem 'sidekiq'
 gem 'capistrano'
+gem 'haml'
 
 group :assets do
   gem 'sass-rails'
@@ -35,4 +36,6 @@ group :test do
   gem 'database_cleaner' # For Capybara
   gem 'fabrication'
   gem 'faker'
+  gem 'ZenTest'
+  gem 'autotest-rails'
 end
