@@ -1,4 +1,4 @@
-*.swp
+# Ignore bundler config.
 /.bundle
 /.sass-cache/
 /config/app_config.yml
@@ -8,3 +8,6 @@
 /tmp/
 /.idea
 /lib/adapters/
+
+/config/application.yml
+

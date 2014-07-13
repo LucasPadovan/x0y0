@@ -1,39 +1,19 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
-  after_filter -> { expires_now if user_signed_in? }
-  
-  rescue_from Exception do |exception|
-    begin
-      if exception.kind_of? CanCan::AccessDenied
-        redirect_to root_url, alert: t('errors.access_denied')
-      else
-        @title = t('errors.title')
-        
-        if response.redirect_url.blank?
-          render template: 'shared/show_error', locals: { error: exception }
-        end
+  include ActionTitle
+  include CurrentUser
+  include UpdateResource
 
-        logger.error(([exception, ''] + exception.backtrace).join("\n"))
-      end
+  protect_from_forgery with: :exception
 
-    # In case the rescue explodes itself =)
-    rescue => ex
-      logger.error(([ex, ''] + ex.backtrace).join("\n"))
-    end
+  def authorize
+    plug_mini_profiler
+
+    redirect_to login_url, alert: t('messages.not_authorized') unless current_user
   end
-  
-  def user_for_paper_trail
-    current_user.try(:id)
-  end
-  
+
   private
-  
-  # Overwriting the sign_out redirect path method
-  def after_sign_out_path_for(resource_or_scope)
-    new_user_session_path
-  end
 
-  def after_sign_in_path_for(resource)
-    users_path
-  end
+    def plug_mini_profiler
+      Rack::MiniProfiler.authorize_request if current_user.try :is_admin?
+    end
 end

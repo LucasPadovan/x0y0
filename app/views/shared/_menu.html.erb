@@ -1,39 +1,25 @@
-<div class="navbar navbar-inverse navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="iconic">&#xe055;</span>
-      </a>
-      
-      <%= link_to t('app_name'), root_path, class: 'brand' %>
-      
-      <% if user_signed_in? %>
-        <div class="nav-collapse">
-          <ul class="nav">
-            <%= show_menu_link(
-              name: 'users', controllers: 'users', path: users_path
-            ) if can?(:read, User) %>
-          </ul>
-          <%= render partial: 'shared/nav_search' %>
-          <ul class="nav pull-right">
-            <li>
-              <%= link_to(
-                current_user.email, edit_profile_user_path(current_user),
-                'title' => t('view.users.edit_profile'),
-                'data-show-tooltip' => true, 'data-placement' => 'bottom'
-              ) %>
-            </li>
-            <li>
-              <%= link_to(
-                '&#x2192;'.html_safe, destroy_user_session_path,
-                'title' => t('menu.actions.logout'), 'class' => 'iconic',
-                'id' => 'logout', 'data-show-tooltip' => true,
-                'data-placement' => 'bottom', 'method' => :delete
-              ) %>
-            </li>
-          </ul>
-        </div>
+<header class="navbar navbar-default navbar-fixed-top" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <% if current_user %>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
       <% end %>
+
+      <%= link_to t('app_name'), root_url, class: 'navbar-brand' %>
     </div>
+
+    <% if current_user %>
+      <nav class="collapse navbar-collapse" role="navigation">
+        <ul class="nav navbar-nav">
+          <%= menu_item_for User, users_path %>
+        </ul>
+
+        <%= render 'shared/user_actions' %>
+      </nav>
+    <% end %>
   </div>
-</div>
+</header>

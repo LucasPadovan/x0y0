@@ -1,44 +1,29 @@
 <% if @users.empty? %>
-  <%= render 'shared/empty_index' %>
+  <%= render 'shared/empty_index', message: t('.empty_html') %>
 <% else %>
-  <div class="row">
-    <div class="span12">
-      <table class="table resource-list">
-        <thead>
-          <tr>
-            <th><%= User.human_attribute_name 'name' %></th>
-            <th><%= User.human_attribute_name 'lastname' %></th>
-            <th>
-              <span class="visible-desktop">
-                <%= User.human_attribute_name 'email' %>
-              </span>
-            </th>
-            <th colspan="2"></th>
-          </tr>
-        </thead>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th><%= User.human_attribute_name 'name' %></th>
+        <th><%= User.human_attribute_name 'lastname' %></th>
+        <th><%= User.human_attribute_name 'email' %></th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
 
-        <tbody>
-          <% @users.each do |user| %>
-            <tr>
-              <td><%= link_to user.name, user, title: t('label.show') %></td>
-              <td><%= link_to user.lastname, user, title: t('label.show') %></td>
-              <td><%= mail_to user.email, user.email, class: 'visible-desktop' %></td>
-              <td><%= link_to_edit edit_user_path(user) if can? :update, user %></td>
-              <td><%= link_to_destroy user if can? :destroy, user %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <%= pagination_links(@users) %>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.lastname %></td>
+          <td><%= mail_to user.email %></td>
+          <td><%= link_to_show user %></td>
+          <td><%= link_to_edit [:edit, user] %></td>
+          <td><%= link_to_destroy user %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 <% end %>
 
-<nav class="form-actions">
-  <%= link_to(
-    t('view.users.new', default: :'label.new'),
-    new_user_path, class: 'btn btn-primary'
-    ) if can? :create, User
-  %>
-</nav>
+<%= link_to_new new_user_path, class: 'btn btn-primary' %>

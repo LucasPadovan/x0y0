@@ -1,32 +1,37 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.9'
+gem 'rails', '~> 4.1.2'
 
 gem 'pg'
+gem 'sass-rails'
+gem 'uglifier'
+gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'turbolinks'
-gem 'will_paginate'
+gem 'jbuilder'
+gem 'bcrypt'
 gem 'simple_form'
 gem 'devise'
 gem 'cancan'
 gem 'role_model'
 gem 'paper_trail'
-gem 'magick_columns'
 gem 'validates_timeliness'
 gem 'sidekiq'
-gem 'capistrano'
 gem 'haml'
+gem 'irreverent'
+gem 'figaro'
+gem 'rack-mini-profiler'
 
-group :assets do
-  gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'libv8'
-  gem 'therubyracer'
-  gem 'uglifier'
-end
+
+gem 'unicorn'
 
 group :development do
-  gem 'thin'
+  gem 'spring'
+  gem 'capistrano'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano-rbenv'
+  gem 'unicorn-rails'
 end
 
 group :test do
@@ -36,6 +41,8 @@ group :test do
   gem 'database_cleaner' # For Capybara
   gem 'fabrication'
   gem 'faker'
-  gem 'ZenTest'
-  gem 'autotest-rails'
+end
+
+group :doc do
+  gem 'sdoc', require: false
 end

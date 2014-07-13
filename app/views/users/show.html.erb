@@ -1,21 +1,8 @@
-<div class="readonly-data">
-  <h2><%= @user %></h2>
+<h1><%= @user %></h1>
 
-  <p>
-    <%= mail_to @user.email %>
-  </p>
+<p>
+  <%= mail_to @user.email %>
+</p>
 
-  <% if @user.role %>
-    <p>
-      <%= User.human_attribute_name 'roles', count: 1 %>:
-      <strong><%= t("view.users.roles.#{@user.role}") %></strong>
-    </p>
-  <% end %>
-</div>
-
-<nav class="form-actions">
-  <%= link_to t('label.edit'), edit_user_path(@user), class: 'btn btn-primary' %>
-  <div class="pull-right">
-    <%= link_to t('label.list'), users_path %>
-  </div>
-</nav>
+<%= link_to_edit [:edit, @user] %> |
+<%= link_to_index users_path %>

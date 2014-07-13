@@ -1,12 +1,16 @@
-X0Y0::Application.routes.draw do
-  devise_for :users
-  
-  resources :users do
-    member do
-      get :edit_profile
-      put :update_profile
-    end
-  end
-  
-  root to: redirect('/users/sign_in')
+Rails.application.routes.draw do
+  # Sessions
+  get 'login', to: 'sessions#new', as: 'login'
+  post 'sessions', to: 'sessions#create', as: 'sessions'
+  delete 'logout', to: 'sessions#destroy', as: 'logout'
+
+  # Profiles
+  get 'profile', to: 'profiles#edit', as: 'profile'
+  patch 'profile', to: 'profiles#update'
+
+  # Resources
+  resources :users
+  resources :password_resets, only: [:new, :create, :edit, :update]
+
+  root 'sessions#new'
 end
