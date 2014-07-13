@@ -21,7 +21,7 @@ gem 'haml'
 gem 'irreverent'
 gem 'figaro'
 gem 'rack-mini-profiler'
-
+gem 'SrBuj'
 
 gem 'unicorn'
 
