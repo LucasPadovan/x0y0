@@ -1,4 +1,4 @@
-common: &common
+default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
@@ -7,14 +7,17 @@ common: &common
   host: localhost
 
 development:
+  <<: *default
   database: x0y0_development
-  <<: *common
 
 test:
+  <<: *default
   database: x0y0_test
-  <<: *common
 
 production:
+  <<: *default
   database: x0y0_production
-  <<: *common
 
+sandbox:
+  <<: *default
+  database: x0y0_production
